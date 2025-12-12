@@ -9,5 +9,4 @@ public class REquipa7Application {
 	public static void main(String[] args) {
 		SpringApplication.run(REquipa7Application.class, args);
 	}
-
 }
