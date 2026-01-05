@@ -21,7 +21,7 @@ public class TransactionDTO {
         this.date = date;
         this.categoryIds = categoryIds;
     }
-    
+    //
     public Long getId(){
         return id;
     }

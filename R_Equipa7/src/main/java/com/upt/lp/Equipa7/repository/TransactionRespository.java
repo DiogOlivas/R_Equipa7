@@ -6,3 +6,4 @@ import com.upt.lp.Equipa7.entity.Transaction;
 public interface TransactionRespository extends JpaRepository<Transaction, Long> {
 
 }
+//

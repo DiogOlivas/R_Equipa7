@@ -8,7 +8,6 @@ import com.upt.lp.Equipa7.DTO.TransactionDTO;
 import com.upt.lp.Equipa7.entity.Transaction;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/transactions")
 
