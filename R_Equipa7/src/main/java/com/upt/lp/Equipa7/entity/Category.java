@@ -14,20 +14,24 @@ public class Category {
 	
 	private String name;
 	
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Transaction>transactions;
+	private String desc;
 	
 	private double budget;
 	
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Transaction>transactions;
+		
 	public Category() {}
 
-	public Category(Long id, String name, double budget) {
-		super();
+	public Category(Long id, User user, String name, String desc, double budget, List<Transaction> transactions) {
 		this.id = id;
+		this.user = user;
 		this.name = name;
+		this.desc = desc;
 		this.budget = budget;
+		this.transactions = transactions;
 	}
-	
+
 ////Getters and setters///////////
 	public Long getId() {
 		return id;
@@ -43,6 +47,14 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getDesc() {
+		return name;
+	}
+
+	public void getDesc(String desc) {
+		this.desc = desc;
 	}
 
 	public List<Transaction> getTransactions() {
