@@ -27,7 +27,7 @@ public class CategoryService {
     }
     public Category updateCategory(Long id, Category cat) {
         Category existing = categoryRepository.findbyid(id)
-                .orElseThrow(() -> new RunTimeException("Categoria não foi encontrada."));
+                .orElseThrow(() -> new RunTimeException("Category not found."));
         existing.setName(cat.getName());
         existing.setBudget(cat.getBudget());
 
