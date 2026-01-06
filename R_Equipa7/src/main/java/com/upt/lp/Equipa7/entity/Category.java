@@ -12,6 +12,7 @@ public class Category {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	@Column(unique = true, nullable = false)
 	private String name;
 	
 	private String desc;
@@ -27,7 +28,7 @@ public class Category {
 		this.id = id;
 		this.user = user;
 		this.name = name;
-		this.desc = desc;
+		this.desc = desc;	
 		this.budget = budget;
 		this.transactions = transactions;
 	}
@@ -50,10 +51,10 @@ public class Category {
 	}
 	
 	public String getDesc() {
-		return name;
+		return desc;
 	}
 
-	public void getDesc(String desc) {
+	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 
