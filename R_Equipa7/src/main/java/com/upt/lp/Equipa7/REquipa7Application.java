@@ -1,4 +1,4 @@
-package com.upt.lp.R_Equipa7;
+package com.upt.lp.Equipa7;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

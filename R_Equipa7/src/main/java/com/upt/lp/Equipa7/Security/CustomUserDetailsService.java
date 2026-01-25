@@ -1,4 +1,4 @@
-package Security;
+package com.upt.lp.Equipa7.Security;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

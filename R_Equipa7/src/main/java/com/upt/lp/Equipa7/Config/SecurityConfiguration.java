@@ -1,4 +1,4 @@
-package com.upt.Equipa7.Config;
+package com.upt.lp.Equipa7.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import Security.CustomUserDetailsService;
+import com.upt.lp.Equipa7.Security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -36,11 +36,11 @@ public class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+    	http
             .csrf(csrf -> csrf.disable())
             .userDetailsService(userDetailsService)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/users/register", "/users/login").permitAll()
+                .requestMatchers("/users/register", "/users/login", "/users/change-password").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session ->
