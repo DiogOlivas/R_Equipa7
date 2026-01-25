@@ -15,7 +15,7 @@ public class Category {
 	@Column(unique = true, nullable = false)
 	private String name;
 	
-	private String desc;
+	private String description;
 	
 	private double budget;
 	
@@ -24,11 +24,11 @@ public class Category {
 		
 	public Category() {}
 
-	public Category(Long id, User user, String name, String desc, double budget, List<Transaction> transactions) {
+	public Category(Long id, User user, String name, String description, double budget, List<Transaction> transactions) {
 		this.id = id;
 		this.user = user;
 		this.name = name;
-		this.desc = desc;	
+		this.description = description;	
 		this.budget = budget;
 		this.transactions = transactions;
 	}
@@ -51,11 +51,11 @@ public class Category {
 	}
 	
 	public String getDesc() {
-		return desc;
+		return description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDesc(String description) {
+		this.description = description;
 	}
 
 	public List<Transaction> getTransactions() {
