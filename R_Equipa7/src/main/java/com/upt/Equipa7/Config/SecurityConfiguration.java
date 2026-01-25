@@ -33,10 +33,10 @@ public class SecurityConfiguration {
             .userDetailsService(userDetailsService)
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/users/register").permitAll()
-                .requestMatchers("/users/login").authenticated()
+                .requestMatchers("/users/login").permitAll()
                 .anyRequest().authenticated()
             )
-            .httpBasic(Customizer.withDefaults()); 
+            .httpBasic(basic -> basic.disable()); 
 
         return http.build();
     }

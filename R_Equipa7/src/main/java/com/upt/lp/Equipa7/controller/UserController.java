@@ -1,13 +1,17 @@
 package com.upt.lp.Equipa7.controller;
 
+import com.upt.lp.Equipa7.DTO.ChangePasswordDTO;
 import com.upt.lp.Equipa7.DTO.RegisterUserDTO;
 import com.upt.lp.Equipa7.entity.User;
+import com.upt.lp.Equipa7.repository.UserRepository;
 import com.upt.lp.Equipa7.service.UserService;
 
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -39,6 +43,18 @@ import java.util.List;
         @PostMapping("/login")
         public ResponseEntity<String> login() {
             return ResponseEntity.ok("Login successful");
+        }
+        
+        @PostMapping("/change-password")
+        public ResponseEntity<String> changePass(
+                @Valid @RequestBody ChangePasswordDTO dto,
+                Authentication authentication
+        ) {
+            User user = (User) authentication.getPrincipal();
+
+            userService.changePassword(user, dto);
+
+            return ResponseEntity.ok("Password changed successfully");
         }
 
         @DeleteMapping("/{id}") 
