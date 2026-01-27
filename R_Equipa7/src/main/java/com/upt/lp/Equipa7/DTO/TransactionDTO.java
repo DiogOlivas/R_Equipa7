@@ -3,24 +3,24 @@ package com.upt.lp.Equipa7.DTO;
 
 public class TransactionDTO {
     private Long id;
+    private Long userId;
     private double value;
     private String date;
     private String description;
-    private Long userId;
     private String paymentMethod; 
-    private String category;
+    private Long categoryId;
     
 
     public TransactionDTO() {}
 
-    public TransactionDTO(Long id, double value, String date, String description, Long userId, String paymentMethod, String category) {
+    public TransactionDTO(Long id, double value, String date, String description, Long userId, String paymentMethod, Long categoryId) {
         this.id = id;
         this.value = value;
         this.description = description;
         this.userId = userId;
         this.paymentMethod = paymentMethod;
         this.date = date;
-        this.category = category;
+        this.categoryId = categoryId;
     }
     
     public Long getId(){
@@ -60,11 +60,11 @@ public class TransactionDTO {
     public void setPaymentMethod(String paymentMethod){
         this.paymentMethod = paymentMethod;
     }
-    public String getCategory() {
-        return category;
+    public Long getCategoryId() {
+        return categoryId;
     }
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
 }

@@ -4,29 +4,35 @@ import com.upt.lp.Equipa7.DTO.TransactionDTO;
 import com.upt.lp.Equipa7.entity.Transaction;
 import com.upt.lp.Equipa7.entity.User;
 import com.upt.lp.Equipa7.repository.UserRepository;
+import com.upt.lp.Equipa7.repository.CategoryRepository;
 import com.upt.lp.Equipa7.entity.Category;
 import java.time.LocalDate;
 
 
-//
 public class TransactionMapper {
     //ENTITY TO DTO
-        public static TransactionDTO toDTO(Transaction transaction){
-            if( transaction == null) return null;
+	public static TransactionDTO toDTO(Transaction tx) {
+	    if (tx == null) return null;
 
-             return new TransactionDTO(
-                transaction.getId(),
-                transaction.getValue(),
-                transaction.getDate().toString(), 
-                transaction.getDescription(),
-                transaction.getUser() != null ? transaction.getUser().getId() : null,
-                transaction.getPaymentMethod(),
-                transaction.getCategory() != null ? transaction.getCategory().getName() : null
-                
-            );
-        }
-     // DTO → ENTITY
-        public static Transaction toEntity(TransactionDTO dto, UserRepository userRepository) {
+	    TransactionDTO dto = new TransactionDTO();
+	    dto.setId(tx.getId());
+	    dto.setDate(tx.getDate().toString());
+	    dto.setDescription(tx.getDescription());
+	    dto.setValue(tx.getValue());
+	    dto.setPaymentMethod(tx.getPaymentMethod());
+
+	    dto.setUserId(
+	        tx.getUser() != null ? tx.getUser().getId() : null
+	    );
+
+	    dto.setCategoryId(
+	        tx.getCategory() != null ? tx.getCategory().getId() : null
+	    );
+
+	    return dto;
+	}
+     // DTO TO ENTITY
+        public static Transaction toEntity(TransactionDTO dto, UserRepository userRepository, CategoryRepository categoryRepository) {
             if (dto == null) return null;
 
             Transaction transaction = new Transaction();
@@ -44,9 +50,10 @@ public class TransactionMapper {
             transaction.setDescription(dto.getDescription());
             transaction.setPaymentMethod(dto.getPaymentMethod());
 
-            if (dto.getCategory() != null && !dto.getCategory().isEmpty()) {
-                Category category = new Category();
-                category.setName(dto.getCategory());
+            if (dto.getCategoryId() != null) {
+                Category category = categoryRepository.findById(dto.getCategoryId())
+                    .orElseThrow(() -> new RuntimeException("Category not found"));
+
                 transaction.setCategory(category);
             }
 
