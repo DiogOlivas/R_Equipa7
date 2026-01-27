@@ -14,11 +14,11 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
-    private final UserService userService;
+    private final UserRepository userRepository;
 
-    public CategoryService(CategoryRepository categoryRepository, UserService userService) {
+    public CategoryService(CategoryRepository categoryRepository, UserRepository userRepository) {
         this.categoryRepository = categoryRepository;
-        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     public List<Category> getAllCategories(){
@@ -30,23 +30,29 @@ public class CategoryService {
     }
 
     public Category createCategory(CategoryDTO dto) {
+    	    Category category = CategoryMapper.toEntity(dto, userRepository);
 
-        Category category = CategoryMapper.toEntity(dto);
-
-        User user = userService.getCurrentUser();
-        category.setUser(user);
-
-        return categoryRepository.save(category);
+    	    if (dto.getUserId() != null) {
+    	        User user = userRepository.findById(dto.getUserId())
+    	                      .orElseThrow(() -> new RuntimeException("User not found"));
+    	        category.setUser(user);
+    	    }
+    	    return categoryRepository.save(category);
     }
     
     public Category updateCategory(Long id, CategoryDTO dto) {
         Category existing = categoryRepository.findById(id)
         		.orElseThrow(() -> new RuntimeException("Category not found."));
+        if (dto.getUserId() != null) {
+            User user = userRepository.findById(dto.getUserId())
+                          .orElseThrow(() -> new RuntimeException("User not found"));
+            existing.setUser(user);
+        }
         existing.setName(dto.getName());
         existing.setDesc(dto.getDesc());
         existing.setBudget(dto.getBudget());
         //existing.setTransactions(dto.getTransactions());
-
+        
         return categoryRepository.save(existing);
     }
 

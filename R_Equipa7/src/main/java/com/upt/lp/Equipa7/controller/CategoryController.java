@@ -2,6 +2,7 @@ package com.upt.lp.Equipa7.controller;
 
 import com.upt.lp.Equipa7.DTO.CategoryDTO;
 import com.upt.lp.Equipa7.entity.Category;
+import com.upt.lp.Equipa7.mapping.CategoryMapper;
 import com.upt.lp.Equipa7.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -17,19 +18,25 @@ public class CategoryController {
     }
 
     @GetMapping
-    public List<Category> getAll() {
-         return categoryService.getAllCategories();
+    public List<CategoryDTO> getAll() {
+         return categoryService.getAllCategories()
+        		 .stream()
+        		 .map(CategoryMapper::toDTO)
+        		 .toList();
     }
 
     @GetMapping("/{id}")
-    public Category getById(@PathVariable Long id) {
-        return categoryService.getCategory(id);
+    public CategoryDTO getById(@PathVariable Long id) {
+        return CategoryMapper.toDTO(categoryService.getCategory(id));
     }
 
+
     @PostMapping
-    public Category create(@RequestBody CategoryDTO dto) {
-        return categoryService.createCategory(dto);
+    public CategoryDTO create(@RequestBody CategoryDTO dto) {
+        Category saved = categoryService.createCategory(dto);
+        return CategoryMapper.toDTO(saved);
     }
+
 
     @PutMapping("/{id}") 
     public Category update(@PathVariable Long id, @RequestBody CategoryDTO dto) {

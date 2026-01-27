@@ -62,8 +62,12 @@ public class CategoryDTO {
         this.budget = budget;
     }
 
-    public List<Long> getTransactions() {
+    public List<Long> getTransactionIds() {
         return transactionIds;
+    }
+
+    public void setTransactionIds(List<Long> transactionIds) {
+        this.transactionIds = transactionIds;
     }
 
     public void setGastos(List<Long> transactionIds) {

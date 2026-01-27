@@ -1,5 +1,6 @@
 package com.upt.lp.Equipa7.mapping;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import com.upt.lp.Equipa7.DTO.CategoryDTO;
@@ -18,18 +19,34 @@ public class CategoryMapper {
 				cat.getName(),
 				cat.getDesc(),
 				cat.getBudget(),
-				cat.getTransactions() == null ? null :
-		            cat.getTransactions().stream()
-		                .map(t -> t.getId())
-		                .collect(Collectors.toList())
+				cat.getTransactions() == null
+	            ? List.of()
+	            : cat.getTransactions().stream()
+	                .map(t -> t.getId())
+	                .collect(Collectors.toList())
 				); 
 	}
 
-	public static Category toEntity(CategoryDTO dto) {
-	    Category c = new Category();
-	    c.setName(dto.getName());
-	    c.setDesc(dto.getDesc());
-	    c.setBudget(dto.getBudget());
-	    return c;
+	public static Category toEntity(CategoryDTO dto, UserRepository userRepository) {
+	    if (dto == null) return null;
+
+	    Category category = new Category();
+
+	    if (dto.getId() != null && dto.getId() != 0) {
+	        category.setId(dto.getId());
+	    }
+
+	    category.setName(dto.getName());
+	    category.setDesc(dto.getDesc());
+	    category.setBudget(dto.getBudget());
+
+	    if (dto.getUserId() != null) {
+	        User user = userRepository.findById(dto.getUserId())
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+	        category.setUser(user);
+	    }
+	    
+
+	    return category;
 	}
 }

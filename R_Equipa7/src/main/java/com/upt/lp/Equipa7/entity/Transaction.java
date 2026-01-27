@@ -20,13 +20,10 @@ public class Transaction {
 
 	@ManyToOne private Category category;
 
-	//
 	
 	public Transaction () {}
 
-	public Transaction(Long id, LocalDate date, Category category, String description, double value,
-				String paymentMethod, User user) {
-			super();
+	public Transaction(Long id, LocalDate date, Category category, String description, double value, String paymentMethod, User user) {
 			this.id = id;
 			this.date = date;
 			this.category = category;
